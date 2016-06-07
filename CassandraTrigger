@@ -1,0 +1,24 @@
+package de.zell.casandratest;
+import java.util.Collection;
+import java.util.Collections;
+import org.apache.cassandra.config.ColumnDefinition;
+import org.apache.cassandra.db.Mutation;
+import org.apache.cassandra.db.partitions.Partition;
+import org.apache.cassandra.triggers.ITrigger;
+import org.apache.log4j.Logger;
+/**
+ *org.apache.cassandra.triggers.ITrigger
+ * @author Christopher Zell <zelldon91@gmail.com>
+ */
+public class TriggerClass implements ITrigger {
+  private static final Logger logger = Logger.getLogger(TriggerClass.class.getName());
+  
+  @Override
+  public Collection<Mutation> augment(Partition prtn) {
+    for(ColumnDefinition columnDef : prtn.columns()) {
+      logger.info(columnDef.toString());
+    }
+    return Collections.EMPTY_LIST;
+  }
+  
+}
